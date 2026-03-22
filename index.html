@@ -520,10 +520,10 @@ footer strong{color:rgba(255,255,255,.82)}
 #pay-overlay{
   position:fixed;inset:0;z-index:9000;
   background:rgba(0,0,0,.60);backdrop-filter:blur(4px);
-  display:flex!important;align-items:center;justify-content:center;
+  display:none;align-items:center;justify-content:center;
   padding:16px;
 }
-#pay-overlay[style*="display:none"]{display:none!important}
+#pay-overlay.open{display:flex}
 #pay-modal{
   background:#fff;border-radius:20px;
   width:100%;max-width:560px;max-height:92vh;overflow-y:auto;
@@ -1147,7 +1147,7 @@ footer strong{color:rgba(255,255,255,.82)}
 <!-- ════════════════════════════════════════════════════════════
      PAYMENT MODAL
 ════════════════════════════════════════════════════════════ -->
-<div id="pay-overlay" style="display:none" aria-modal="true" role="dialog">
+<div id="pay-overlay" aria-modal="true" role="dialog">
   <div id="pay-modal">
 
     <!-- HEADER -->
@@ -1383,7 +1383,7 @@ function openPayModal() {
   document.getElementById('pm-confirm-btn').disabled = true;
 
   showStep('pm-s1');
-  document.getElementById('pay-overlay').style.display = 'flex';
+  document.getElementById('pay-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 
   // Focus email sau animation
@@ -1391,7 +1391,7 @@ function openPayModal() {
 }
 
 function closePayModal() {
-  document.getElementById('pay-overlay').style.display = 'none';
+  document.getElementById('pay-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
 
