@@ -513,6 +513,143 @@ footer strong{color:rgba(255,255,255,.82)}
   .proof-bar .inner{gap:16px}
   .proof-stat .num{font-size:24px}
 }
+
+/* ────────────────────────────────────────────────────────
+   PAYMENT MODAL
+──────────────────────────────────────────────────────── */
+#pay-overlay{
+  position:fixed;inset:0;z-index:9000;
+  background:rgba(0,0,0,.60);backdrop-filter:blur(4px);
+  display:flex!important;align-items:center;justify-content:center;
+  padding:16px;
+}
+#pay-overlay[style*="display:none"]{display:none!important}
+#pay-modal{
+  background:#fff;border-radius:20px;
+  width:100%;max-width:560px;max-height:92vh;overflow-y:auto;
+  box-shadow:0 24px 80px rgba(0,0,0,.28);
+  animation:modalIn .25s ease;
+}
+@keyframes modalIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.pm-head{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  padding:24px 24px 0;border-bottom:1px solid var(--border);
+  padding-bottom:16px;margin-bottom:0;
+}
+.pm-title{font-size:20px;font-weight:900;color:var(--dblue)}
+.pm-sub{font-size:13px;color:var(--gray);margin-top:2px}
+.pm-close{
+  background:var(--lgray);border:none;border-radius:50%;
+  width:36px;height:36px;font-size:16px;cursor:pointer;
+  flex-shrink:0;margin-left:12px;line-height:1;color:var(--gray);
+  transition:background .15s;
+}
+.pm-close:hover{background:var(--border)}
+.pm-step{padding:24px}
+.pm-step-label{
+  display:flex;align-items:center;gap:10px;
+  font-size:14px;font-weight:700;color:var(--dark);
+  margin-bottom:18px;
+}
+.pm-dot{
+  width:26px;height:26px;border-radius:50%;
+  background:var(--dblue);color:#fff;
+  font-size:13px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.pm-input{
+  width:100%;padding:14px 16px;font-size:16px;
+  border:2px solid var(--border);border-radius:10px;
+  outline:none;transition:border-color .2s;font-family:inherit;
+  margin-bottom:6px;
+}
+.pm-input:focus{border-color:var(--blue)}
+.pm-input.err{border-color:var(--red)}
+.pm-err{color:var(--red);font-size:13px;margin-bottom:10px}
+.pm-btn-next{
+  width:100%;padding:15px;margin-top:12px;
+  background:linear-gradient(135deg,#D32F2F,#B71C1C);
+  color:#fff;font-size:17px;font-weight:800;
+  border-radius:12px;border:none;cursor:pointer;
+  transition:transform .15s,box-shadow .15s;
+  box-shadow:0 4px 18px rgba(211,47,47,.35);
+}
+.pm-btn-next:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(211,47,47,.45)}
+.pm-btn-next:active{transform:none}
+.pm-btn-back{
+  width:100%;padding:11px;margin-top:10px;
+  background:transparent;border:none;
+  color:var(--gray);font-size:14px;cursor:pointer;
+}
+.pm-btn-back:hover{color:var(--dark)}
+/* QR row */
+.pm-qr-row{
+  display:flex;gap:20px;align-items:flex-start;
+  flex-wrap:wrap;
+}
+.pm-qr-box{text-align:center;flex-shrink:0}
+.pm-qr-box img{
+  border-radius:12px;border:3px solid var(--border);
+  display:block;
+}
+.pm-qr-note{font-size:11px;color:var(--gray);margin-top:6px}
+.pm-bank-info{flex:1;min-width:220px}
+.pm-bank-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:9px 0;border-bottom:1px solid var(--border);
+  gap:8px;
+}
+.pm-bank-row:last-child{border-bottom:none}
+.pm-bank-lbl{font-size:13px;color:var(--gray);white-space:nowrap}
+.pm-bank-val{font-size:14px;font-weight:600;color:var(--dark);text-align:right;display:flex;align-items:center;gap:6px}
+.pm-amount{font-size:18px;font-weight:900;color:var(--red)}
+.pm-copy{
+  background:var(--lblue);border:none;border-radius:6px;
+  padding:3px 7px;font-size:13px;cursor:pointer;
+  transition:background .15s;color:var(--dblue);
+}
+.pm-copy:hover{background:#c5d8fc}
+.pm-note-box{
+  background:var(--lorange);border:1px solid #FFCC80;
+  border-radius:10px;padding:12px 14px;
+  font-size:13px;color:#5D4037;margin:18px 0;line-height:1.6;
+}
+.pm-btn-confirm{
+  width:100%;padding:15px;
+  background:linear-gradient(135deg,#1E8E3E,#155724);
+  color:#fff;font-size:17px;font-weight:800;
+  border-radius:12px;border:none;cursor:pointer;
+  box-shadow:0 4px 18px rgba(30,142,62,.35);
+  transition:transform .15s,box-shadow .15s;
+}
+.pm-btn-confirm:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(30,142,62,.45)}
+.pm-btn-confirm:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+/* Email confirm */
+.pm-email-confirm{
+  display:flex;align-items:flex-start;gap:8px;
+  background:var(--lgreen);border:1px solid #A5D6A7;
+  border-radius:10px;padding:11px 14px;
+  font-size:14px;color:#1B5E20;margin-bottom:4px;
+  animation:fadeIn .2s ease;
+  line-height:1.5;
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.pm-confirm-check{
+  font-size:18px;color:var(--green);font-weight:900;flex-shrink:0;margin-top:1px;
+}
+/* Done state */
+.pm-done-icon{font-size:56px;text-align:center;margin-bottom:12px}
+.pm-done-title{font-size:22px;font-weight:900;color:var(--dblue);text-align:center;margin-bottom:14px}
+.pm-done-body{font-size:15px;line-height:1.75;color:var(--dark);text-align:center;margin-bottom:22px}
+/* Mobile tweaks */
+@media(max-width:480px){
+  #pay-modal{border-radius:14px}
+  .pm-qr-row{flex-direction:column;align-items:center}
+  .pm-qr-box img{width:160px;height:160px}
+  .pm-bank-info{width:100%}
+  .pm-bank-row{flex-direction:column;align-items:flex-start;gap:2px}
+  .pm-bank-val{text-align:left}
+}
 </style>
 </head>
 <body>
@@ -942,8 +1079,8 @@ footer strong{color:rgba(255,255,255,.82)}
           <li><span class="ck2">✓</span>Nhận file ngay sau khi thanh toán</li>
         </ul>
 
-        <button class="btn-buy">🛒 Mua Ngay – Chỉ 99.000đ</button>
-        <p class="price-note">🔒 Thanh toán an toàn &nbsp;·&nbsp; Nhận PDF ngay lập tức &nbsp;·&nbsp; Không cần tài khoản</p>
+        <button class="btn-buy" onclick="openPayModal()">🛒 Mua Ngay – Chỉ 99.000đ</button>
+        <p class="price-note">🔒 Thanh toán an toàn &nbsp;·&nbsp; Nhận PDF qua email &nbsp;·&nbsp; Không cần tài khoản</p>
       </div>
     </div>
   </div>
@@ -998,7 +1135,7 @@ footer strong{color:rgba(255,255,255,.82)}
       Đừng tiếp tục dùng Claude như search engine.<br/>
       99.000đ để có toàn bộ hệ thống AI Employee — xứng đáng hơn nhiều so với hàng tuần mò mẫm tự học.
     </p>
-    <button class="btn-final" onclick="document.getElementById('mua-ngay').scrollIntoView({behavior:'smooth'})">
+    <button class="btn-final" onclick="openPayModal()">
       🛒 Mua Ngay – Chỉ 99.000đ
     </button>
     <p style="color:rgba(255,255,255,.55);font-size:13px;margin-top:14px">
@@ -1006,6 +1143,117 @@ footer strong{color:rgba(255,255,255,.82)}
     </p>
   </div>
 </section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PAYMENT MODAL
+════════════════════════════════════════════════════════════ -->
+<div id="pay-overlay" style="display:none" aria-modal="true" role="dialog">
+  <div id="pay-modal">
+
+    <!-- HEADER -->
+    <div class="pm-head">
+      <div>
+        <div class="pm-title">Đặt Mua Ebook</div>
+        <div class="pm-sub">Claude Cowork – Hướng Dẫn Toàn Tập · 99.000đ</div>
+      </div>
+      <button class="pm-close" onclick="closePayModal()" aria-label="Đóng">✕</button>
+    </div>
+
+    <!-- STEP 1: QR + BANK INFO + EMAIL (tất cả trên 1 màn hình) -->
+    <div class="pm-step" id="pm-s1">
+
+      <div class="pm-step-label"><span class="pm-dot">1</span> Chuyển khoản theo thông tin bên dưới</div>
+
+      <div class="pm-qr-row">
+        <!-- QR -->
+        <div class="pm-qr-box">
+          <img id="pm-qr-img" src="" alt="QR chuyển khoản" width="180" height="180"/>
+          <div class="pm-qr-note">Quét bằng app ngân hàng bất kỳ</div>
+        </div>
+
+        <!-- Chi tiết tài khoản -->
+        <div class="pm-bank-info">
+          <div class="pm-bank-row">
+            <span class="pm-bank-lbl">Ngân hàng</span>
+            <span class="pm-bank-val" id="pm-bank-name"></span>
+          </div>
+          <div class="pm-bank-row">
+            <span class="pm-bank-lbl">Số tài khoản</span>
+            <span class="pm-bank-val">
+              <span id="pm-account-no"></span>
+              <button class="pm-copy" onclick="copyText('pm-account-no','btn-copy-acc')" id="btn-copy-acc">📋</button>
+            </span>
+          </div>
+          <div class="pm-bank-row">
+            <span class="pm-bank-lbl">Chủ tài khoản</span>
+            <span class="pm-bank-val" id="pm-account-name"></span>
+          </div>
+          <div class="pm-bank-row">
+            <span class="pm-bank-lbl">Số tiền</span>
+            <span class="pm-bank-val pm-amount">99.000 đ</span>
+          </div>
+          <div class="pm-bank-row">
+            <span class="pm-bank-lbl">Nội dung CK</span>
+            <span class="pm-bank-val">
+              <strong id="pm-order-code" style="color:var(--red)"></strong>
+              <button class="pm-copy" onclick="copyText('pm-order-code','btn-copy-code')" id="btn-copy-code">📋</button>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pm-note-box">
+        ⚠ <strong>Quan trọng:</strong> Nhập đúng nội dung chuyển khoản để hệ thống khớp đúng đơn của bạn.
+      </div>
+
+      <!-- STEP 2: EMAIL (ngay bên dưới QR) -->
+      <div class="pm-step-label" style="margin-top:4px"><span class="pm-dot">2</span> Nhập email để nhận ebook</div>
+
+      <input
+        type="email" id="pm-email"
+        class="pm-input"
+        placeholder="email@gmail.com"
+        autocomplete="email"
+        oninput="onEmailInput(this)"
+      />
+
+      <!-- Xác nhận email (hiện khi email hợp lệ) -->
+      <div id="pm-email-confirm" class="pm-email-confirm" style="display:none">
+        <span class="pm-confirm-check">✓</span>
+        Ebook sẽ gửi về: <strong id="pm-email-preview"></strong> — đúng không?
+      </div>
+      <div id="pm-email-err" class="pm-err" style="display:none">⚠ Vui lòng nhập email hợp lệ</div>
+
+      <button class="pm-btn-confirm" id="pm-confirm-btn" onclick="confirmPayment()" disabled>
+        ✅ Tôi đã chuyển khoản xong
+      </button>
+    </div>
+
+    <!-- STEP 3: CHỜ XÁC NHẬN -->
+    <div class="pm-step" id="pm-s3" style="display:none">
+      <div class="pm-done-icon">📬</div>
+      <div class="pm-done-title">Đã ghi nhận thanh toán!</div>
+      <div class="pm-done-body">
+        Cảm ơn bạn! Thông báo đã được gửi đến người bán.<br/><br/>
+        Vui lòng <strong>kiểm tra hòm thư</strong> của <strong id="pm-email-display"></strong> trong vòng <strong>5–15 phút</strong> — ebook sẽ được gửi ngay khi xác nhận chuyển khoản.<br/><br/>
+        <span style="color:var(--gray);font-size:14px">Không thấy email? Kiểm tra thư mục Spam/Junk.</span>
+      </div>
+      <button class="pm-btn-next" onclick="closePayModal()">Đóng</button>
+    </div>
+
+    <!-- STEP 4: LỖI -->
+    <div class="pm-step" id="pm-s4" style="display:none">
+      <div class="pm-done-icon">😕</div>
+      <div class="pm-done-title">Oops, có lỗi xảy ra</div>
+      <div class="pm-done-body">
+        Không gửi được thông báo tự động. Vui lòng chụp màn hình biên lai và nhắn trực tiếp qua Telegram: <strong id="pm-telegram-support">@YourTelegram</strong><br/><br/>
+        <span style="color:var(--gray);font-size:13px">Ghi rõ email và mã đơn hàng để được hỗ trợ nhanh nhất.</span>
+      </div>
+      <button class="pm-btn-next" onclick="closePayModal()">Đóng</button>
+    </div>
+
+  </div>
+</div>
 
 <!-- ── FOOTER ────────────────────────────────────────────────── -->
 <footer>
@@ -1080,6 +1328,169 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
 }); // end DOMContentLoaded
+
+/* ════════════════════════════════════════════════════════════
+   PAYMENT MODAL – config & logic
+════════════════════════════════════════════════════════════ */
+
+// ── CẤU HÌNH – thay đổi 4 giá trị này ──────────────────────
+var BANK_ID      = 'MB';              // Mã ngân hàng VietQR (MB, VCB, TCB, BIDV, VPB...)
+var ACCOUNT_NO   = '1234567890';      // Số tài khoản của Edgar
+var ACCOUNT_NAME = 'NGUYEN VAN A';    // Tên chủ tài khoản (IN HOA, không dấu)
+var SUPPORT_TG   = '@YourTelegram';   // Username Telegram hỗ trợ khi lỗi
+// ──────────────────────────────────────────────────────────
+
+function genOrderCode() {
+  var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  var s = 'XinCamOn';
+  for (var i = 0; i < 5; i++) s += chars[Math.floor(Math.random() * chars.length)];
+  return s;
+}
+
+var _orderCode = '';
+var _email = '';
+
+function isValidEmail(v) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+}
+
+function openPayModal() {
+  _orderCode = genOrderCode();
+
+  // Điền thông tin ngân hàng
+  document.getElementById('pm-bank-name').textContent    = BANK_ID;
+  document.getElementById('pm-account-no').textContent   = ACCOUNT_NO;
+  document.getElementById('pm-account-name').textContent = ACCOUNT_NAME;
+  document.getElementById('pm-order-code').textContent   = _orderCode;
+
+  // Telegram support
+  var tgEl = document.getElementById('pm-telegram-support');
+  if (tgEl) tgEl.textContent = SUPPORT_TG;
+
+  // Tạo QR VietQR (cập nhật mỗi lần mở để đổi mã đơn)
+  var qrUrl = 'https://img.vietqr.io/image/' + BANK_ID + '-' + ACCOUNT_NO + '-compact2.png'
+    + '?amount=99000'
+    + '&addInfo=' + encodeURIComponent(_orderCode)
+    + '&accountName=' + encodeURIComponent(ACCOUNT_NAME);
+  document.getElementById('pm-qr-img').src = qrUrl;
+
+  // Reset email input & confirm
+  var emailEl = document.getElementById('pm-email');
+  emailEl.value = '';
+  emailEl.classList.remove('err');
+  document.getElementById('pm-email-confirm').style.display = 'none';
+  document.getElementById('pm-email-err').style.display = 'none';
+  document.getElementById('pm-confirm-btn').disabled = true;
+
+  showStep('pm-s1');
+  document.getElementById('pay-overlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+
+  // Focus email sau animation
+  setTimeout(function() { emailEl.focus(); }, 300);
+}
+
+function closePayModal() {
+  document.getElementById('pay-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+// Đóng khi click ngoài modal + ESC
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('pay-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closePayModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePayModal();
+  });
+});
+
+// Real-time validate email khi người dùng gõ
+function onEmailInput(el) {
+  var val = el.value.trim();
+  var confirmBox = document.getElementById('pm-email-confirm');
+  var errBox     = document.getElementById('pm-email-err');
+  var btn        = document.getElementById('pm-confirm-btn');
+  var preview    = document.getElementById('pm-email-preview');
+
+  if (isValidEmail(val)) {
+    _email = val;
+    preview.textContent = val;
+    confirmBox.style.display = 'flex';
+    errBox.style.display = 'none';
+    el.classList.remove('err');
+    btn.disabled = false;
+  } else {
+    confirmBox.style.display = 'none';
+    btn.disabled = true;
+    // Chỉ hiện lỗi nếu đã nhập nhưng sai format (không hiện ngay khi trống)
+    if (val.length > 3 && val.includes('@') === false) {
+      errBox.style.display = 'block';
+      el.classList.add('err');
+    } else {
+      errBox.style.display = 'none';
+      el.classList.remove('err');
+    }
+  }
+}
+
+function copyText(elId, btnId) {
+  var text = document.getElementById(elId).textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = document.getElementById(btnId);
+    btn.textContent = '✓';
+    setTimeout(function() { btn.textContent = '📋'; }, 1500);
+  }).catch(function() {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  });
+}
+
+function confirmPayment() {
+  // Validate lần cuối
+  var emailEl = document.getElementById('pm-email');
+  _email = emailEl.value.trim();
+  if (!isValidEmail(_email)) {
+    document.getElementById('pm-email-err').style.display = 'block';
+    emailEl.classList.add('err');
+    emailEl.focus();
+    return;
+  }
+
+  var btn = document.getElementById('pm-confirm-btn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Đang gửi thông báo...';
+
+  fetch('/api/notify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: _email, orderCode: _orderCode })
+  })
+  .then(function(r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  })
+  .then(function() {
+    document.getElementById('pm-email-display').textContent = _email;
+    showStep('pm-s3');
+  })
+  .catch(function() {
+    showStep('pm-s4');
+  })
+  .finally(function() {
+    btn.disabled = false;
+    btn.textContent = '✅ Tôi đã chuyển khoản xong';
+  });
+}
+
+function showStep(id) {
+  ['pm-s1','pm-s3','pm-s4'].forEach(function(s) {
+    document.getElementById(s).style.display = s === id ? 'block' : 'none';
+  });
+}
 </script>
 </body>
 </html>
