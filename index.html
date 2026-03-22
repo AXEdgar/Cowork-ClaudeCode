@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Claude Cowork – Hướng Dẫn Toàn Tập. Biến Claude thành nhân viên AI làm việc 24/7: Claude.md, Skills, Connectors, Scheduled Tasks. Chỉ 99.000đ."/>
+<meta property="og:title" content="Claude Cowork – Hướng Dẫn Toàn Tập"/>
+<meta property="og:description" content="Biến Claude thành nhân viên AI 24/7 của bạn – chỉ 99.000đ"/>
+<meta property="og:type" content="website"/>
+<title>Claude Cowork – Hướng Dẫn Toàn Tập | Nhân Viên AI 24/7 | 99.000đ</title>
+<style>
+/* ────────────────────────────────────────────────────────
+   RESET & BASE
+──────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;font-size:16px;color:#212121;background:#fff;line-height:1.65;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none}
+button{cursor:pointer;border:none;font-family:inherit}
+
+/* ────────────────────────────────────────────────────────
+   DESIGN TOKENS
+──────────────────────────────────────────────────────── */
+:root{
+  --blue:#1A73E8;--dblue:#0D47A1;--lblue:#E8F0FE;
+  --green:#1E8E3E;--lgreen:#E6F4EA;
+  --orange:#F57C00;--lorange:#FFF3E0;
+  --red:#D32F2F;--lred:#FFEBEE;
+  --purple:#6A1B9A;--lpurple:#F3E5F5;
+  --gold:#F9A825;--ambergold:#FF8F00;
+  --dark:#212121;--gray:#757575;--lgray:#F5F5F5;--border:#E0E0E0;
+  --white:#fff;
+  --r6:6px;--r10:10px;--r14:14px;--r20:20px;
+  --shadow-sm:0 2px 8px rgba(0,0,0,.07);
+  --shadow-md:0 4px 20px rgba(0,0,0,.10);
+  --shadow-lg:0 12px 48px rgba(0,0,0,.14);
+}
+
+/* ────────────────────────────────────────────────────────
+   UTILITIES
+──────────────────────────────────────────────────────── */
+.wrap{max-width:980px;margin:0 auto;padding:0 24px}
+.tc{text-align:center}
+.badge{display:inline-block;padding:4px 16px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.badge-blue{background:var(--lblue);color:var(--dblue)}
+.badge-green{background:var(--lgreen);color:var(--green)}
+.badge-orange{background:var(--lorange);color:var(--orange)}
+.badge-purple{background:var(--lpurple);color:var(--purple)}
+.badge-gold{background:#FFF8E1;color:#F57F17}
+
+.sec-label{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:10px;display:block}
+.sec-title{font-size:clamp(24px,3.2vw,36px);font-weight:900;color:var(--dblue);line-height:1.2;margin-bottom:12px}
+.sec-sub{font-size:16px;color:var(--gray);max-width:600px;margin:0 auto 40px}
+
+/* ────────────────────────────────────────────────────────
+   COUNTDOWN BAR
+──────────────────────────────────────────────────────── */
+.cd-bar{
+  background:var(--red);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  flex-wrap:wrap;gap:6px;
+  padding:11px 16px;font-size:14px;font-weight:700;text-align:center;
+}
+.cd-lbl{white-space:nowrap}
+#timer{display:inline-flex;align-items:center;gap:3px}
+.tu{
+  background:rgba(0,0,0,.28);border-radius:5px;
+  padding:3px 7px;font-size:17px;font-weight:900;
+  min-width:34px;text-align:center;color:var(--gold);display:inline-block;
+}
+.tsep{font-size:18px;color:var(--gold);font-weight:900}
+
+/* ────────────────────────────────────────────────────────
+   STICKY NAV
+──────────────────────────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:200;
+  background:var(--dblue);
+  box-shadow:0 2px 16px rgba(0,0,0,.28);
+  padding:11px 0;
+}
+nav .inner{
+  max-width:980px;margin:0 auto;padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.nav-brand{color:#fff;font-weight:900;font-size:17px;letter-spacing:.3px;white-space:nowrap}
+.nav-brand em{color:var(--gold);font-style:normal}
+.nav-cta{
+  background:var(--gold);color:#000;
+  font-weight:900;font-size:13px;
+  padding:9px 20px;border-radius:8px;
+  transition:transform .15s,box-shadow .15s;
+  white-space:nowrap;
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(249,168,37,.5)}
+
+/* ────────────────────────────────────────────────────────
+   HERO
+──────────────────────────────────────────────────────── */
+.hero{
+  background:linear-gradient(135deg,#0D47A1 0%,#1565C0 45%,#1A73E8 100%);
+  padding:72px 0 60px;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-100px;right:-100px;
+  width:500px;height:500px;border-radius:50%;
+  background:rgba(255,255,255,.05);
+}
+.hero::after{
+  content:'';position:absolute;bottom:-80px;left:-60px;
+  width:320px;height:320px;border-radius:50%;
+  background:rgba(255,255,255,.04);
+}
+.hero-grid{
+  display:grid;grid-template-columns:1fr 360px;gap:52px;
+  align-items:center;position:relative;z-index:1;
+}
+.hero-eyebrow{
+  color:var(--gold);font-size:12px;font-weight:800;
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:14px;display:block;
+}
+.hero h1{
+  color:#fff;font-size:clamp(28px,3.8vw,46px);
+  font-weight:900;line-height:1.15;margin-bottom:18px;
+}
+.hero h1 .hl{color:var(--gold)}
+.hero-desc{
+  color:rgba(255,255,255,.87);font-size:17px;
+  line-height:1.7;margin-bottom:28px;
+}
+.hero-chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px}
+.chip{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:20px;padding:5px 14px;
+  color:#fff;font-size:13px;font-weight:600;
+}
+.chip-icon{font-size:14px}
+
+/* Book 3D */
+.book-scene{display:flex;justify-content:center;align-items:center;perspective:1000px}
+.book{
+  width:230px;height:310px;position:relative;
+  transform:rotateY(-20deg) rotateX(5deg);
+  transform-style:preserve-3d;
+  filter:drop-shadow(-16px 20px 36px rgba(0,0,0,.5));
+  animation:bookfloat 4.5s ease-in-out infinite;
+}
+@keyframes bookfloat{
+  0%,100%{transform:rotateY(-20deg) rotateX(5deg) translateY(0)}
+  50%{transform:rotateY(-20deg) rotateX(5deg) translateY(-12px)}
+}
+.book-cover{
+  width:100%;height:100%;position:absolute;
+  background:linear-gradient(155deg,#1565C0 0%,#0D47A1 50%,#01579B 100%);
+  border-radius:4px 12px 12px 4px;
+  display:flex;flex-direction:column;
+  padding:24px 20px 20px;overflow:hidden;
+}
+.book-cover::before{
+  content:'';position:absolute;top:-50px;right:-50px;
+  width:160px;height:160px;border-radius:50%;
+  background:rgba(255,255,255,.07);
+}
+.book-cover::after{
+  content:'';position:absolute;bottom:-30px;left:-30px;
+  width:120px;height:120px;border-radius:50%;
+  background:rgba(255,255,255,.05);
+}
+.book-tag{
+  font-size:8.5px;font-weight:800;color:var(--gold);
+  letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;
+}
+.book-name{
+  font-size:18px;font-weight:900;color:#fff;
+  line-height:1.2;margin-bottom:8px;
+}
+.book-name em{color:var(--gold);font-style:normal}
+.book-sub{font-size:9px;color:rgba(255,255,255,.7);line-height:1.5;margin-bottom:auto}
+.book-features{display:flex;flex-direction:column;gap:5px;margin-top:18px}
+.book-feat{
+  background:rgba(255,255,255,.11);border-radius:5px;
+  padding:5px 8px;font-size:8px;color:rgba(255,255,255,.88);
+  display:flex;align-items:center;gap:6px;
+}
+.book-feat::before{content:'▸';color:var(--gold)}
+.book-spine{
+  position:absolute;left:-14px;top:0;bottom:0;width:14px;
+  background:linear-gradient(#0A2E6E,#0D47A1);
+  border-radius:4px 0 0 4px;
+  transform:rotateY(90deg) translateZ(-7px);
+}
+
+/* Hero price box */
+.hero-pbox{
+  background:rgba(255,255,255,.11);
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:var(--r14);padding:22px 26px;
+  backdrop-filter:blur(8px);margin-bottom:22px;
+}
+.p-old{color:rgba(255,255,255,.55);font-size:15px;text-decoration:line-through;margin-bottom:4px}
+.p-new{color:var(--gold);font-size:46px;font-weight:900;line-height:1;letter-spacing:-1px}
+.p-new small{font-size:20px;font-weight:700}
+.p-save{
+  display:inline-block;margin-top:8px;
+  background:var(--red);color:#fff;
+  font-size:12px;font-weight:800;padding:3px 14px;border-radius:20px;
+}
+
+/* CTA buttons */
+.btn-hero{
+  display:block;width:100%;
+  background:linear-gradient(135deg,var(--gold),var(--ambergold));
+  color:#000;font-weight:900;font-size:18px;
+  padding:18px;border-radius:var(--r14);text-align:center;
+  box-shadow:0 8px 28px rgba(249,168,37,.5);
+  transition:transform .15s,box-shadow .15s;
+}
+.btn-hero:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(249,168,37,.6)}
+.btn-sub{color:rgba(255,255,255,.6);font-size:12px;text-align:center;margin-top:9px}
+
+/* ────────────────────────────────────────────────────────
+   SOCIAL PROOF BAR
+──────────────────────────────────────────────────────── */
+.proof-bar{
+  background:var(--lgray);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:18px 0;
+}
+.proof-bar .inner{
+  max-width:980px;margin:0 auto;padding:0 24px;
+  display:flex;justify-content:center;align-items:center;
+  gap:40px;flex-wrap:wrap;
+}
+.proof-stat{text-align:center}
+.proof-stat .num{font-size:28px;font-weight:900;color:var(--blue);display:block;line-height:1}
+.proof-stat .lbl{font-size:12px;color:var(--gray);margin-top:2px;display:block}
+
+/* ────────────────────────────────────────────────────────
+   SECTIONS
+──────────────────────────────────────────────────────── */
+section{padding:76px 0}
+
+/* ── PAIN ── */
+.pain-sec{background:var(--lred)}
+.pain-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;margin-top:36px;
+}
+.pain-card{
+  background:#fff;border-radius:var(--r10);padding:22px;
+  border-left:4px solid var(--red);
+  box-shadow:var(--shadow-sm);
+}
+.pain-card .em{font-size:28px;margin-bottom:10px}
+.pain-card h3{font-size:15px;font-weight:800;color:var(--red);margin-bottom:7px}
+.pain-card p{font-size:13.5px;color:var(--gray);line-height:1.6}
+
+/* ── SOLUTION ── */
+.solution-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  gap:20px;margin-top:36px;
+}
+.sol-card{
+  background:#fff;border-radius:var(--r14);padding:28px;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-sm);
+  transition:transform .2s,box-shadow .2s;
+}
+.sol-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.sol-icon{
+  width:52px;height:52px;border-radius:var(--r10);
+  display:grid;place-items:center;font-size:24px;margin-bottom:16px;
+}
+.sol-card h3{font-size:16px;font-weight:800;margin-bottom:7px;color:var(--dark)}
+.sol-card p{font-size:13.5px;color:var(--gray);line-height:1.6}
+
+/* ── 4 SIÊU QUYỀN NĂNG ── */
+.power-sec{background:var(--dblue)}
+.power-sec .sec-label{color:var(--gold)}
+.power-sec .sec-title{color:#fff}
+.power-sec .sec-sub{color:rgba(255,255,255,.7)}
+.powers{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;margin-top:36px;
+}
+.pw-card{
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--r14);padding:28px 22px;
+  transition:background .2s,transform .2s;
+}
+.pw-card:hover{background:rgba(255,255,255,.15);transform:translateY(-4px)}
+.pw-num{
+  width:36px;height:36px;
+  background:var(--gold);border-radius:8px;
+  display:grid;place-items:center;
+  font-size:16px;font-weight:900;color:#000;
+  margin-bottom:14px;
+}
+.pw-icon{font-size:32px;margin-bottom:12px}
+.pw-card h3{font-size:16px;font-weight:800;color:#fff;margin-bottom:8px}
+.pw-card p{font-size:13px;color:rgba(255,255,255,.68);line-height:1.6}
+.pw-tag{
+  display:inline-block;margin-top:12px;
+  background:var(--gold);color:#000;
+  font-size:10px;font-weight:800;padding:2px 10px;border-radius:12px;
+}
+
+/* ── 7 SKILLS ── */
+.skills-sec{background:var(--lgray)}
+.skill-list{display:flex;flex-direction:column;gap:16px;margin-top:36px}
+.sk-row{
+  background:#fff;border-radius:var(--r10);
+  padding:22px 24px;
+  display:flex;align-items:flex-start;gap:20px;
+  border:1px solid var(--border);box-shadow:var(--shadow-sm);
+  transition:border-color .2s,box-shadow .2s;
+}
+.sk-row:hover{border-color:var(--blue);box-shadow:var(--shadow-md)}
+.sk-num{
+  min-width:48px;height:48px;
+  background:linear-gradient(135deg,var(--blue),var(--dblue));
+  border-radius:var(--r10);display:grid;place-items:center;
+  font-size:20px;font-weight:900;color:#fff;flex-shrink:0;
+}
+.sk-icon{font-size:24px;margin-right:-4px;margin-top:4px}
+.sk-body h3{font-size:16px;font-weight:800;color:var(--dblue);margin-bottom:5px}
+.sk-body p{font-size:13.5px;color:var(--gray);line-height:1.6}
+.sk-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.sk-tag{
+  font-size:10.5px;font-weight:700;padding:3px 10px;
+  border-radius:20px;background:var(--lblue);color:var(--blue);
+}
+
+/* ── CHAPTERS ── */
+.ch-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:14px;margin-top:36px;
+}
+.ch-card{
+  background:#fff;border-radius:var(--r10);
+  padding:20px 22px;
+  display:flex;align-items:flex-start;gap:16px;
+  border:1px solid var(--border);box-shadow:var(--shadow-sm);
+  transition:border-color .2s;
+}
+.ch-card:hover{border-color:var(--blue)}
+.ch-num{
+  min-width:42px;height:42px;
+  background:linear-gradient(135deg,var(--blue),var(--dblue));
+  border-radius:var(--r6);display:grid;place-items:center;
+  font-size:17px;font-weight:900;color:#fff;flex-shrink:0;
+}
+.ch-body h3{font-size:14.5px;font-weight:800;color:var(--dblue);margin-bottom:4px}
+.ch-body p{font-size:13px;color:var(--gray);line-height:1.55}
+
+/* ── BENEFITS ── */
+.ben-list{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:32px}
+.ben-list li{
+  display:flex;align-items:flex-start;gap:14px;
+  background:var(--lgreen);border-radius:var(--r10);
+  padding:16px 20px;font-size:15px;color:var(--dark);font-weight:600;
+  line-height:1.5;
+}
+.ck{
+  width:26px;height:26px;min-width:26px;
+  background:var(--green);border-radius:50%;
+  display:grid;place-items:center;
+  color:#fff;font-size:13px;font-weight:900;margin-top:1px;
+}
+
+/* ── PRICING ── */
+.pricing-sec{background:var(--lgray)}
+.price-card{
+  max-width:500px;margin:36px auto 0;
+  background:#fff;border-radius:var(--r20);
+  border:2.5px solid var(--blue);
+  box-shadow:0 16px 60px rgba(26,115,232,.2);
+  overflow:hidden;
+}
+.price-head{
+  background:linear-gradient(135deg,var(--dblue),var(--blue));
+  padding:30px 36px;text-align:center;
+}
+.price-head h3{color:#fff;font-size:20px;font-weight:900;margin-bottom:6px}
+.price-head p{color:rgba(255,255,255,.78);font-size:14px}
+.price-body{padding:34px 36px}
+.p-display{text-align:center;margin-bottom:26px}
+.p-orig{color:var(--gray);font-size:17px;text-decoration:line-through}
+.p-big{font-size:62px;font-weight:900;color:var(--blue);line-height:1.05;letter-spacing:-2px}
+.p-big span{font-size:24px;font-weight:700}
+.p-badge{
+  display:inline-block;margin-top:8px;
+  background:var(--red);color:#fff;
+  font-size:13px;font-weight:800;padding:5px 18px;border-radius:20px;
+}
+.price-incl{list-style:none;margin-bottom:28px}
+.price-incl li{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 0;border-bottom:1px solid var(--border);
+  font-size:14px;color:var(--dark);
+}
+.price-incl li:last-child{border-bottom:none}
+.ck2{color:var(--green);font-size:16px;font-weight:900;min-width:20px}
+.btn-buy{
+  display:block;width:100%;
+  background:linear-gradient(135deg,var(--gold),var(--ambergold));
+  color:#000;font-weight:900;font-size:20px;
+  padding:19px;border-radius:var(--r14);text-align:center;
+  box-shadow:0 8px 28px rgba(249,168,37,.5);
+  transition:transform .15s,box-shadow .15s;
+}
+.btn-buy:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(249,168,37,.6)}
+.price-note{text-align:center;margin-top:14px;font-size:13px;color:var(--gray)}
+
+/* ── FAQ ── */
+.faq-list{max-width:700px;margin:36px auto 0;display:flex;flex-direction:column;gap:10px}
+.faq-item{background:#fff;border:1px solid var(--border);border-radius:var(--r10);overflow:hidden}
+.faq-q{
+  padding:18px 22px;display:flex;justify-content:space-between;
+  align-items:center;gap:14px;cursor:pointer;
+  font-weight:700;font-size:15px;color:var(--dblue);user-select:none;
+}
+.faq-q .arr{font-size:11px;color:var(--blue);flex-shrink:0;transition:transform .25s}
+.faq-item.open .faq-q .arr{transform:rotate(180deg)}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height .35s ease,padding .3s ease;
+  font-size:14px;color:var(--gray);line-height:1.7;padding:0 22px;
+}
+.faq-item.open .faq-a{max-height:320px;padding:0 22px 18px}
+
+/* ── FINAL CTA ── */
+.final-cta{
+  background:linear-gradient(135deg,#0D47A1,#1A73E8);
+  padding:80px 0;text-align:center;
+}
+.final-cta h2{color:#fff;font-size:clamp(26px,3.5vw,40px);font-weight:900;margin-bottom:14px;line-height:1.2}
+.final-cta p{color:rgba(255,255,255,.8);font-size:16px;margin-bottom:38px;line-height:1.7}
+.btn-final{
+  display:inline-block;
+  background:linear-gradient(135deg,var(--gold),var(--ambergold));
+  color:#000;font-weight:900;font-size:20px;
+  padding:19px 60px;border-radius:var(--r14);
+  box-shadow:0 8px 28px rgba(249,168,37,.5);
+  transition:transform .15s,box-shadow .15s;
+}
+.btn-final:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(249,168,37,.6)}
+
+/* ── FOOTER ── */
+footer{
+  background:#111;color:rgba(255,255,255,.5);
+  text-align:center;padding:30px 24px;font-size:13px;line-height:1.8;
+}
+footer strong{color:rgba(255,255,255,.82)}
+
+/* ── WAVE ── */
+.wave{line-height:0}
+.wave svg{display:block}
+
+/* ════════════════════════════════════════════════════════
+   PROGRESSIVE ENHANCEMENT — SCROLL REVEAL
+   Content visible by default (no opacity:0)
+   JS adds .js-ready to body → only then animate
+════════════════════════════════════════════════════════ */
+.reveal{transition:opacity .65s ease,transform .65s ease}
+.js-ready .reveal{opacity:0;transform:translateY(26px)}
+.js-ready .reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ════════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════════ */
+@media(max-width:860px){
+  .hero-grid{grid-template-columns:1fr 300px;gap:36px}
+  .book{width:200px;height:268px}
+}
+@media(max-width:700px){
+  .hero-grid{grid-template-columns:1fr;text-align:center}
+  .hero-chips{justify-content:center}
+  .book-scene{order:-1}
+  .book{width:190px;height:256px}
+  .proof-bar .inner{gap:22px}
+  nav .inner{gap:8px}
+  .nav-brand{font-size:14px}
+  .nav-cta{font-size:12px;padding:8px 14px}
+  .pain-grid{grid-template-columns:1fr}
+  .solution-grid{grid-template-columns:1fr}
+  .powers{grid-template-columns:1fr 1fr}
+  .price-body{padding:22px 22px}
+  .faq-q{font-size:14px;padding:15px 16px}
+  .faq-a,.faq-item.open .faq-a{padding-left:16px;padding-right:16px}
+}
+@media(max-width:460px){
+  section{padding:54px 0}
+  .hero{padding:50px 0 42px}
+  .hero h1{font-size:27px}
+  .hero-desc{font-size:15px}
+  .btn-hero{font-size:16px;padding:16px}
+  .powers{grid-template-columns:1fr}
+  .cd-bar{font-size:12px}
+  .tu{font-size:15px;min-width:30px}
+  .ch-grid{grid-template-columns:1fr}
+  .sk-row{flex-direction:column;gap:10px}
+  .price-head{padding:22px 20px}
+  .price-head h3{font-size:17px}
+  .p-big{font-size:50px}
+  .btn-buy{font-size:17px}
+  .btn-final{padding:17px 32px;font-size:17px}
+  .proof-bar .inner{gap:16px}
+  .proof-stat .num{font-size:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── COUNTDOWN BAR ────────────────────────────────────────── -->
+<div class="cd-bar">
+  <span class="cd-lbl">🔥 Ưu đãi kết thúc sau:</span>
+  <span id="timer">
+    <span class="tu" id="t-h">05</span><span class="tsep">:</span>
+    <span class="tu" id="t-m">59</span><span class="tsep">:</span>
+    <span class="tu" id="t-s">59</span>
+  </span>
+</div>
+
+<!-- ── STICKY NAV ───────────────────────────────────────────── -->
+<nav>
+  <div class="inner">
+    <div class="nav-brand">Claude<em>Cowork</em> Ebook</div>
+    <a href="#mua-ngay" class="nav-cta">Mua Ngay – 99.000đ ↓</a>
+  </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="wrap hero-grid">
+
+    <!-- LEFT: Copy -->
+    <div>
+      <span class="hero-eyebrow">📘 Ebook Đào Tạo AI – Tiếng Việt</span>
+      <h1>
+        Biến Claude Thành<br/>
+        <span class="hl">Nhân Viên AI 24/7</span><br/>
+        Làm Việc Cho Bạn
+      </h1>
+      <p class="hero-desc">
+        Hướng dẫn toàn tập <strong style="color:#fff">Claude Cowork</strong> từ A→Z:
+        thiết lập Claude.md, cài Skills, kết nối 38+ ứng dụng, và lên lịch tự động chạy
+        khi bạn ngủ — <strong style="color:#fff">không cần biết lập trình.</strong>
+      </p>
+      <div class="hero-chips">
+        <div class="chip"><span class="chip-icon">📄</span>File Claude.md</div>
+        <div class="chip"><span class="chip-icon">⚡</span>7 Skills thực tế</div>
+        <div class="chip"><span class="chip-icon">🔌</span>38+ Connectors</div>
+        <div class="chip"><span class="chip-icon">⏰</span>Scheduled Tasks</div>
+        <div class="chip"><span class="chip-icon">🇻🇳</span>100% Tiếng Việt</div>
+      </div>
+
+      <div class="hero-pbox">
+        <div class="p-old">Giá gốc: 299.000đ</div>
+        <div class="p-new">99.000<small>đ</small></div>
+        <span class="p-save">🔥 Giảm 67% – Hôm nay thôi!</span>
+      </div>
+
+      <button class="btn-hero" onclick="document.getElementById('mua-ngay').scrollIntoView({behavior:'smooth'})">
+        🛒 Mua Ngay – Chỉ 99.000đ
+      </button>
+      <p class="btn-sub">🔒 Thanh toán an toàn · Nhận file PDF ngay lập tức</p>
+    </div>
+
+    <!-- RIGHT: Book mockup -->
+    <div class="book-scene">
+      <div class="book">
+        <div class="book-spine"></div>
+        <div class="book-cover">
+          <div class="book-tag">Ebook Đào Tạo AI</div>
+          <div class="book-name">CLAUDE<br/><em>COWORK</em><br/>Hướng Dẫn</div>
+          <div class="book-sub">Toàn Tập · Nhân Viên AI 24/7</div>
+          <div class="book-features">
+            <div class="book-feat">File Claude.md – Nhận diện AI</div>
+            <div class="book-feat">7 Skills thực tế</div>
+            <div class="book-feat">Connectors 38+ app</div>
+            <div class="book-feat">Scheduled Tasks tự động</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── SOCIAL PROOF BAR ─────────────────────────────────────── -->
+<div class="proof-bar">
+  <div class="inner">
+    <div class="proof-stat"><span class="num">9</span><span class="lbl">Chương học</span></div>
+    <div class="proof-stat"><span class="num">4</span><span class="lbl">Siêu quyền năng</span></div>
+    <div class="proof-stat"><span class="num">7</span><span class="lbl">Skills thực tế</span></div>
+    <div class="proof-stat"><span class="num">38+</span><span class="lbl">App kết nối</span></div>
+    <div class="proof-stat"><span class="num">PDF</span><span class="lbl">Nhận ngay lập tức</span></div>
+  </div>
+</div>
+
+<!-- ── PAIN POINTS ──────────────────────────────────────────── -->
+<section class="pain-sec reveal">
+  <div class="wrap tc">
+    <span class="badge badge-orange" style="margin-bottom:14px">Bạn có đang gặp vấn đề này?</span>
+    <h2 class="sec-title">90% Người Dùng Claude<br/>Đang Lãng Phí 90% Tiềm Năng</h2>
+    <p class="sec-sub">Họ dùng Claude như search engine — hỏi xong đóng lại, ngày mai bắt đầu lại từ đầu</p>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="em">🔄</div>
+        <h3>Phải giải thích lại từ đầu mỗi lần</h3>
+        <p>Claude không nhớ bạn là ai, làm gì, muốn kết quả như thế nào — mỗi cuộc trò chuyện bắt đầu từ zero.</p>
+      </div>
+      <div class="pain-card">
+        <div class="em">✂️</div>
+        <h3>Copy-paste thủ công giữa các app</h3>
+        <p>Phải screenshot lịch, tải file về, copy email rồi paste vào Claude — rất tốn thời gian và hay bị lỗi.</p>
+      </div>
+      <div class="pain-card">
+        <div class="em">😴</div>
+        <h3>AI chỉ làm khi bạn ngồi trực tiếp</h3>
+        <p>Muốn có báo cáo sáng sớm? Phải dậy sớm ngồi làm thủ công. Không có cách nào chạy tự động.</p>
+      </div>
+      <div class="pain-card">
+        <div class="em">🎲</div>
+        <h3>Kết quả không nhất quán</h3>
+        <p>Mỗi lần prompt khác nhau một ít là ra kết quả khác nhau. Không có workflow chuẩn nào để lặp lại.</p>
+      </div>
+      <div class="pain-card">
+        <div class="em">🗂️</div>
+        <h3>Không lưu trữ được gì</h3>
+        <p>Output chỉ có trong chat — không thành file, không thể chia sẻ, không tích lũy được theo thời gian.</p>
+      </div>
+      <div class="pain-card">
+        <div class="em">📖</div>
+        <h3>Tutorial tiếng Anh khó áp dụng</h3>
+        <p>Xem video nước ngoài nhưng không biết bắt đầu từ đâu, setup thế nào cho phù hợp với công việc thực tế.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave" style="background:var(--lred)">
+  <svg viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,24 C360,60 1080,-12 1440,24 L1440,48 L0,48 Z" fill="#fff"/>
+  </svg>
+</div>
+
+<!-- ── SOLUTION ─────────────────────────────────────────────── -->
+<section class="reveal">
+  <div class="wrap tc">
+    <span class="badge badge-green" style="margin-bottom:14px">Giải pháp trong ebook này</span>
+    <h2 class="sec-title">Bạn Sẽ Nhận Được Gì?</h2>
+    <p class="sec-sub">Mỗi phần được thiết kế để đọc xong → áp dụng ngay — không phải lý thuyết suông</p>
+    <div class="solution-grid">
+      <div class="sol-card">
+        <div class="sol-icon" style="background:#E8F0FE">📄</div>
+        <h3>Template Claude.md sẵn dùng</h3>
+        <p>File nhận diện AI giúp Claude hiểu bạn là ai và làm gì — đọc xong tạo được ngay trong 10 phút.</p>
+      </div>
+      <div class="sol-card">
+        <div class="sol-icon" style="background:#E6F4EA">⚡</div>
+        <h3>7 Skills thực chiến</h3>
+        <p>Morning Briefing, Research, Meeting Notes, Slides, Visual Explainer, Diagram, Skill Creator — tất cả hướng dẫn cài đặt chi tiết.</p>
+      </div>
+      <div class="sol-card">
+        <div class="sol-icon" style="background:#FFF3E0">🔌</div>
+        <h3>Kết nối 38+ ứng dụng</h3>
+        <p>Gmail, Google Calendar, Slack, Notion, GitHub... và cách dùng Zapier MCP để kết nối thêm 8.000+ app khác.</p>
+      </div>
+      <div class="sol-card">
+        <div class="sol-icon" style="background:#FFEBEE">⏰</div>
+        <h3>Scheduled Tasks tự động hóa</h3>
+        <p>Thiết lập một lần → Claude chạy mỗi ngày theo lịch — nhận báo cáo sáng, tổng kết chiều mà không cần làm gì.</p>
+      </div>
+      <div class="sol-card">
+        <div class="sol-icon" style="background:#F3E5F5">🗺️</div>
+        <h3>Roadmap 4 tuần rõ ràng</h3>
+        <p>Từ người mới hoàn toàn đến có hệ thống AI Employee chạy 24/7 — từng bước cụ thể không bỏ sót.</p>
+      </div>
+      <div class="sol-card">
+        <div class="sol-icon" style="background:#E0F2F1">🇻🇳</div>
+        <h3>100% Tiếng Việt</h3>
+        <p>Không cần dịch, không cần đoán nghĩa. Mọi khái niệm đều được giải thích bằng ví dụ thực tế dễ hiểu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 4 SIÊU QUYỀN NĂNG ────────────────────────────────────── -->
+<section class="power-sec reveal">
+  <div class="wrap tc">
+    <span class="sec-label">Hệ thống cốt lõi</span>
+    <h2 class="sec-title">4 Siêu Quyền Năng<br/>Biến Claude Thành AI Employee</h2>
+    <p class="sec-sub">Kết hợp cả 4 → Claude làm việc 24/7 không cần bạn ngồi trực tiếp</p>
+    <div class="powers">
+      <div class="pw-card">
+        <div class="pw-num">1</div>
+        <div class="pw-icon">📄</div>
+        <h3>Claude.md File</h3>
+        <p>Claude đọc file này trước mỗi cuộc trò chuyện → biết ngay bạn là ai, làm gì, muốn kết quả thế nào.</p>
+        <span class="pw-tag">Nhận diện AI</span>
+      </div>
+      <div class="pw-card">
+        <div class="pw-num">2</div>
+        <div class="pw-icon">⚡</div>
+        <h3>Skills</h3>
+        <p>Viết quy trình một lần → gõ một từ → Claude chạy toàn bộ quy trình đó hoàn hảo mỗi lần.</p>
+        <span class="pw-tag">Tự động hóa</span>
+      </div>
+      <div class="pw-card">
+        <div class="pw-num">3</div>
+        <div class="pw-icon">🔌</div>
+        <h3>Connectors</h3>
+        <p>Claude đọc và ghi trực tiếp vào Gmail, Calendar, Slack, Notion — không cần copy-paste thủ công.</p>
+        <span class="pw-tag">Kết nối app</span>
+      </div>
+      <div class="pw-card">
+        <div class="pw-num">4</div>
+        <div class="pw-icon">⏰</div>
+        <h3>Scheduled Tasks</h3>
+        <p>Đặt lịch → Claude tự chạy theo giờ — morning brief, báo cáo tuần, scan đối thủ — không cần trigger.</p>
+        <span class="pw-tag">24/7 Autopilot</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave" style="background:var(--dblue)">
+  <svg viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,12 C480,60 960,-12 1440,24 L1440,48 L0,48 Z" fill="var(--lgray)"/>
+  </svg>
+</div>
+
+<!-- ── 7 SKILLS ──────────────────────────────────────────────── -->
+<section class="skills-sec reveal">
+  <div class="wrap">
+    <div class="tc">
+      <span class="badge badge-purple" style="margin-bottom:14px">Nội dung chính</span>
+      <h2 class="sec-title">7 Skills Thực Tế Không Thể Thiếu</h2>
+      <p class="sec-sub">Mỗi skill giải quyết một bài toán thực tế — tiết kiệm hàng giờ làm việc mỗi tuần</p>
+    </div>
+    <div class="skill-list">
+
+      <div class="sk-row">
+        <div class="sk-num">🌅</div>
+        <div class="sk-body">
+          <h3>Skill #1 – Morning Briefing</h3>
+          <p>Mỗi sáng gõ "morning briefing" → Claude quét lịch, email, tin tức AI → tạo dashboard web đẹp với mọi thứ cần biết để bắt đầu ngày. Tích hợp Slack → nhận brief ngay trên điện thoại trước khi mở máy. Tiết kiệm 30 phút mỗi sáng.</p>
+          <div class="sk-tags"><span class="sk-tag">Gmail</span><span class="sk-tag">Calendar</span><span class="sk-tag">Slack</span><span class="sk-tag">HTML Dashboard</span></div>
+        </div>
+      </div>
+
+      <div class="sk-row">
+        <div class="sk-num">🔬</div>
+        <div class="sk-body">
+          <h3>Skill #2 – Research Assistant</h3>
+          <p>Gõ "research assistant [chủ đề]" → Claude tìm kiếm web, tổng hợp, ghi nguồn đầy đủ → tạo báo cáo markdown hoàn chỉnh có thể chia sẻ. Thay thế 30-60 phút research thủ công. Mỗi claim đều có link nguồn kiểm chứng.</p>
+          <div class="sk-tags"><span class="sk-tag">Web Search</span><span class="sk-tag">Tổng hợp nguồn</span><span class="sk-tag">File Markdown</span></div>
+        </div>
+      </div>
+
+      <div class="sk-row">
+        <div class="sk-num">📝</div>
+        <div class="sk-body">
+          <h3>Skill #3 – Meeting Notes → Action Items</h3>
+          <p>Paste transcript họp vào → Claude tóm tắt → liệt kê action items từng người + deadline + câu hỏi còn mở → lưu file. Cuộc họp 1 tiếng thành 10 hành động rõ ràng. Không bao giờ rời phòng họp mà không biết làm gì tiếp.</p>
+          <div class="sk-tags"><span class="sk-tag">Transcript</span><span class="sk-tag">Action Items</span><span class="sk-tag">Deadline</span></div>
+        </div>
+      </div>
+
+      <div class="sk-row">
+        <div class="sk-num">🖥️</div>
+        <div class="sk-body">
+          <h3>Skill #4 – Slide Deck Generator</h3>
+          <p>Gõ một câu mô tả chủ đề → nhận bộ slides HTML đầy đủ với animation đẹp, visual mỗi slide, thiết kế chuyên nghiệp. Tiết kiệm 3 tiếng làm presentation. Tất cả slides trong khóa học gốc được tạo bằng skill này.</p>
+          <div class="sk-tags"><span class="sk-tag">HTML Slides</span><span class="sk-tag">Animation</span><span class="sk-tag">Design chuẩn</span></div>
+        </div>
+      </div>
+
+      <div class="sk-row">
+        <div class="sk-num">🎨</div>
+        <div class="sk-body">
+          <h3>Skill #5 – Visual Explainer</h3>
+          <p>Mô tả concept → Claude tạo trang web tương tác với diagram, animation, typography đẹp. Hoàn hảo để giải thích quy trình phức tạp, system architecture, business flow. Dùng để visualize toàn bộ hệ thống Cowork của bạn.</p>
+          <div class="sk-tags"><span class="sk-tag">Interactive Web</span><span class="sk-tag">Diagram</span><span class="sk-tag">Animation</span></div>
+        </div>
+      </div>
+
+      <div class="sk-row">
+        <div class="sk-num">📐</div>
+        <div class="sk-body">
+          <h3>Skill #6 – Diagram Generator</h3>
+          <p>Mô tả thứ cần vẽ → Claude tạo file JSON định dạng Excalidraw → import vào Excalidraw ngay lập tức. Không cần vẽ tay hay dùng PowerPoint shapes. Hoàn hảo cho flowchart, system architecture, mind map.</p>
+          <div class="sk-tags"><span class="sk-tag">Excalidraw JSON</span><span class="sk-tag">Flowchart</span><span class="sk-tag">Sơ đồ</span></div>
+        </div>
+      </div>
+
+      <div class="sk-row">
+        <div class="sk-num">⚙️</div>
+        <div class="sk-body">
+          <h3>Skill #7 – Skill Creator</h3>
+          <p>Skill tạo ra Skill khác! Mô tả quy trình muốn tự động hóa → Claude hỏi thêm câu hỏi → đóng gói thành skill hoàn chỉnh. Dù bạn là giáo viên, môi giới BĐS, designer hay freelancer — đều tạo được skill riêng cho mình.</p>
+          <div class="sk-tags"><span class="sk-tag">Meta Skill</span><span class="sk-tag">Custom Workflow</span><span class="sk-tag">Mọi ngành nghề</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── 9 CHƯƠNG ──────────────────────────────────────────────── -->
+<section class="reveal">
+  <div class="wrap">
+    <div class="tc">
+      <span class="badge badge-blue" style="margin-bottom:14px">Nội dung chi tiết</span>
+      <h2 class="sec-title">9 Chương Học Toàn Diện</h2>
+      <p class="sec-sub">Từ người mới hoàn toàn đến hệ thống AI Employee chạy 24/7</p>
+    </div>
+    <div class="ch-grid">
+      <div class="ch-card">
+        <div class="ch-num">1</div>
+        <div class="ch-body">
+          <h3>Claude Cowork Là Gì?</h3>
+          <p>Tổng quan, so sánh với ChatGPT, tại sao 90% người dùng chỉ dùng được 10% tiềm năng.</p>
+        </div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-num">2</div>
+        <div class="ch-body">
+          <h3>Thiết Lập Folder Dự Án</h3>
+          <p>Bước 0 bắt buộc: cách tạo folder đúng chuẩn, dùng lệnh "setup" để tự động hóa toàn bộ.</p>
+        </div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-num">3</div>
+        <div class="ch-body">
+          <h3>File Claude.md – Nhận Diện AI</h3>
+          <p>6 thứ cần có, cách tạo tự động qua 7 câu hỏi, template sẵn dùng cho mọi loại công việc.</p>
+        </div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-num">4</div>
+        <div class="ch-body">
+          <h3>Skills – Lệnh Tắt Quy Trình</h3>
+          <p>Cài đặt skills, tạo mới, upload plugin, dùng Skill Creator để đóng gói workflow.</p>
+        </div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-num">5</div>
+        <div class="ch-body">
+          <h3>Connectors – Kết Nối 38+ App</h3>
+          <p>Hướng dẫn từng bước kết nối Gmail, Calendar, Slack, Notion và dùng Zapier MCP.</p>
+        </div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-num">6</div>
+        <div class="ch-body">
+          <h3>Scheduled Tasks – Tự Động 24/7</h3>
+          <p>Tạo morning brief, end-of-day recap, weekly report chạy tự động không cần trigger.</p>
+        </div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-num">7</div>
+        <div class="ch-body">
+          <h3>7 Skills Thực Tế</h3>
+          <p>Hướng dẫn chi tiết cài và dùng từng skill, cách customize cho nhu cầu riêng của bạn.</p>
+        </div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-num">8</div>
+        <div class="ch-body">
+          <h3>Claude Cowork vs Claude Code</h3>
+          <p>So sánh chi tiết, khi nào dùng cái nào, cách chuyển đổi khi bạn muốn nâng cấp.</p>
+        </div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-num">9</div>
+        <div class="ch-body">
+          <h3>Roadmap Bắt Đầu Ngay</h3>
+          <p>3 bước hôm nay + lộ trình 4 tuần từ mới hoàn toàn đến AI Employee chạy đầy đủ.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BENEFITS ──────────────────────────────────────────────── -->
+<section style="background:var(--lgray)" class="reveal">
+  <div class="wrap">
+    <div class="tc">
+      <span class="badge badge-green" style="margin-bottom:14px">Kết quả sau khi đọc</span>
+      <h2 class="sec-title">Bạn Sẽ Làm Được Gì?</h2>
+      <p class="sec-sub">Không phải lý thuyết — đây là kỹ năng bạn có thể áp dụng ngay ngày hôm đó</p>
+    </div>
+    <ul class="ben-list">
+      <li><div class="ck">✓</div>Tạo file Claude.md chuẩn để Claude nhớ bạn là ai và làm đúng mỗi lần — không cần giải thích lại.</li>
+      <li><div class="ck">✓</div>Cài và dùng 7 skills thực tế: tiết kiệm 2-3 tiếng công việc lặp đi lặp lại mỗi ngày.</li>
+      <li><div class="ck">✓</div>Kết nối Gmail, Calendar, Slack — Claude đọc email và soạn trả lời thay bạn mà không cần copy-paste.</li>
+      <li><div class="ck">✓</div>Thiết lập Morning Briefing tự động lúc 8 giờ sáng — nhận tóm tắt lịch, email, tin tức ngay trong Slack.</li>
+      <li><div class="ck">✓</div>Dùng Zapier MCP để kết nối thêm 8.000+ ứng dụng mà Claude không hỗ trợ sẵn.</li>
+      <li><div class="ck">✓</div>Tạo Skills riêng cho quy trình công việc của bạn — không cần biết lập trình, chỉ cần mô tả.</li>
+      <li><div class="ck">✓</div>Có một hệ thống AI Employee hoàn chỉnh chạy 24/7 — thiết lập một lần, hoạt động mãi mãi.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── PRICING ───────────────────────────────────────────────── -->
+<section class="pricing-sec reveal" id="mua-ngay">
+  <div class="wrap tc">
+    <span class="badge badge-gold" style="margin-bottom:14px">Giá đặc biệt ra mắt</span>
+    <h2 class="sec-title">Đầu Tư Một Lần – Dùng Mãi Mãi</h2>
+    <p class="sec-sub">Ít hơn giá 2 tách cà phê để có toàn bộ hệ thống AI Employee</p>
+
+    <div class="price-card">
+      <div class="price-head">
+        <h3>📘 Claude Cowork – Hướng Dẫn Toàn Tập</h3>
+        <p>9 chương · 4 Siêu quyền năng · 7 Skills thực tế · Roadmap 4 tuần</p>
+      </div>
+      <div class="price-body">
+        <div class="p-display">
+          <div class="p-orig">Giá gốc: 299.000đ</div>
+          <div class="p-big">99<span>.000đ</span></div>
+          <span class="p-badge">🔥 Ra mắt – Giảm 67%!</span>
+        </div>
+
+        <ul class="price-incl">
+          <li><span class="ck2">✓</span>File PDF chất lượng cao, in được, đọc mọi thiết bị</li>
+          <li><span class="ck2">✓</span>9 chương hướng dẫn A→Z đầy đủ</li>
+          <li><span class="ck2">✓</span>4 siêu quyền năng: Claude.md · Skills · Connectors · Tasks</li>
+          <li><span class="ck2">✓</span>7 skills thực tế chi tiết step-by-step</li>
+          <li><span class="ck2">✓</span>Template Claude.md sẵn dùng</li>
+          <li><span class="ck2">✓</span>Roadmap 4 tuần từ mới → AI Employee 24/7</li>
+          <li><span class="ck2">✓</span>Sơ đồ trực quan, bảng so sánh, hướng dẫn ảnh</li>
+          <li><span class="ck2">✓</span>Nhận file ngay sau khi thanh toán</li>
+        </ul>
+
+        <button class="btn-buy">🛒 Mua Ngay – Chỉ 99.000đ</button>
+        <p class="price-note">🔒 Thanh toán an toàn &nbsp;·&nbsp; Nhận PDF ngay lập tức &nbsp;·&nbsp; Không cần tài khoản</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ───────────────────────────────────────────────────── -->
+<section class="reveal">
+  <div class="wrap tc">
+    <span class="badge badge-blue" style="margin-bottom:14px">Câu hỏi thường gặp</span>
+    <h2 class="sec-title">FAQ</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q">Tôi không biết gì về AI, có học được không? <span class="arr">▼</span></div>
+        <div class="faq-a">Hoàn toàn được! Ebook viết dành riêng cho người chưa biết gì về Claude Cowork. Không cần biết lập trình, không cần biết terminal. Chỉ cần biết cách dùng máy tính cơ bản là đủ. Mọi bước đều có hình ảnh minh họa và ví dụ cụ thể.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Claude Cowork có miễn phí không? Tôi có cần trả thêm phí nào khác không? <span class="arr">▼</span></div>
+        <div class="faq-a">Ứng dụng Claude desktop (bao gồm Cowork) miễn phí tải về. Tuy nhiên để sử dụng đầy đủ tính năng AI, bạn cần tài khoản Claude (có gói miễn phí với giới hạn và gói Pro từ $20/tháng). Các connector cơ bản như Gmail, Calendar miễn phí. Zapier MCP có gói miễn phí đủ dùng cho cá nhân.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Ebook này khác gì so với xem video YouTube miễn phí? <span class="arr">▼</span></div>
+        <div class="faq-a">Video tiếng Anh nên khó theo dõi và áp dụng. Ebook này được dịch, biên soạn lại hoàn toàn bằng tiếng Việt với ví dụ thực tế. Bạn có file PDF lưu lại, có thể đọc offline, tìm kiếm nhanh, và không cần dừng video 10 lần để hiểu một khái niệm. Có thêm Roadmap 4 tuần và template sẵn dùng không có trong video gốc.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Tôi là trader/marketer/giáo viên, có áp dụng được không? <span class="arr">▼</span></div>
+        <div class="faq-a">Hoàn toàn được! Claude Cowork hoạt động cho mọi ngành nghề. Trader dùng để scan tin tức, tổng hợp market brief sáng. Marketer dùng research, viết content, quản lý lịch đăng. Giáo viên dùng để soạn giáo án, tóm tắt meeting, tạo bài tập. Ebook có Skill Creator giúp bạn tạo skills riêng cho công việc của mình.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Sau khi mua, tôi nhận file như thế nào? <span class="arr">▼</span></div>
+        <div class="faq-a">Bạn nhận file PDF ngay sau khi thanh toán thành công. File có thể đọc trên mọi thiết bị: máy tính, điện thoại, máy tính bảng. Có thể in ra giấy để học offline. File được giữ mãi — không bao giờ hết hạn.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Ebook có cập nhật khi Claude Cowork ra tính năng mới không? <span class="arr">▼</span></div>
+        <div class="faq-a">Nội dung ebook tập trung vào nguyên lý và quy trình cốt lõi — những thứ này không thay đổi dù Claude cập nhật giao diện. Phần cài đặt cụ thể có thể thay đổi theo thời gian nhưng logic và concept vẫn giữ nguyên. Chúng tôi sẽ cố gắng cập nhật ebook khi có thay đổi lớn.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FINAL CTA ─────────────────────────────────────────────── -->
+<section class="final-cta reveal">
+  <div class="wrap">
+    <h2>Bắt Đầu Xây Nhân Viên AI<br/>24/7 Của Bạn Ngay Hôm Nay</h2>
+    <p>
+      Đừng tiếp tục dùng Claude như search engine.<br/>
+      99.000đ để có toàn bộ hệ thống AI Employee — xứng đáng hơn nhiều so với hàng tuần mò mẫm tự học.
+    </p>
+    <button class="btn-final" onclick="document.getElementById('mua-ngay').scrollIntoView({behavior:'smooth'})">
+      🛒 Mua Ngay – Chỉ 99.000đ
+    </button>
+    <p style="color:rgba(255,255,255,.55);font-size:13px;margin-top:14px">
+      🔒 Nhận PDF ngay sau thanh toán · Không cần tài khoản · Đọc mãi không hết hạn
+    </p>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────── -->
+<footer>
+  <strong>Claude Cowork – Hướng Dẫn Toàn Tập</strong><br/>
+  Tài liệu đào tạo AI · Nội dung tiếng Việt · Dành cho người không biết lập trình<br/>
+  <span style="font-size:11px;opacity:.55">
+    Claude Cowork™ là sản phẩm của Anthropic. Ebook này là tài liệu học tập độc lập không liên kết với Anthropic.
+  </span>
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════════════════════ -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  /* ── 1. COUNTDOWN với localStorage ── */
+  (function() {
+    var KEY = 'cw_ebook_end_v1';
+    var DUR = (5*3600 + 59*60 + 59) * 1000;
+    var end = 0;
+    try { var s = localStorage.getItem(KEY); end = s && !isNaN(+s) ? +s : 0; } catch(e) {}
+    if (!end || end <= Date.now()) {
+      end = Date.now() + DUR;
+      try { localStorage.setItem(KEY, String(end)); } catch(e) {}
+    }
+    var H = document.getElementById('t-h');
+    var M = document.getElementById('t-m');
+    var S = document.getElementById('t-s');
+    function tick() {
+      var d = Math.max(0, end - Date.now());
+      if (H) H.textContent = String(Math.floor(d/3600000)).padStart(2,'0');
+      if (M) M.textContent = String(Math.floor(d%3600000/60000)).padStart(2,'0');
+      if (S) S.textContent = String(Math.floor(d%60000/1000)).padStart(2,'0');
+    }
+    tick(); setInterval(tick, 1000);
+  })();
+
+  /* ── 2. FAQ ACCORDION ── */
+  document.querySelectorAll('.faq-q').forEach(function(q) {
+    q.addEventListener('click', function() {
+      var item = q.parentElement;
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(i) { i.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  /* ── 3. SCROLL REVEAL – PROGRESSIVE ENHANCEMENT ──
+     Default: tất cả visible (opacity:1)
+     Sau khi JS chạy: body thêm .js-ready → .reveal ẩn đi
+     Observer hiện lại từng phần khi scroll đến
+     Fallback 1500ms: hiện hết nếu observer không fire (iOS Safari)
+  ── */
+  var items = document.querySelectorAll('.reveal');
+  document.body.classList.add('js-ready');
+
+  function show(el) { el.classList.add('visible'); }
+
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { show(e.target); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -30px 0px' });
+    items.forEach(function(el) { obs.observe(el); });
+    setTimeout(function() {
+      items.forEach(function(el) { if (!el.classList.contains('visible')) show(el); });
+    }, 1500);
+  } else {
+    items.forEach(show);
+  }
+
+}); // end DOMContentLoaded
+</script>
+</body>
+</html>
