@@ -24,8 +24,8 @@ export default async function handler(req, res) {
 
   const BOT_TOKEN  = process.env.TELEGRAM_BOT_TOKEN;
   const MY_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
-  const BREVO_KEY  = process.env.BREVO_API_KEY;
-  const FROM_EMAIL = process.env.FROM_EMAIL || 'duclam203@gmail.com';
+  const GMAIL_USER = process.env.GMAIL_USER;
+  const GMAIL_PASS = process.env.GMAIL_APP_PASSWORD;
   const FROM_NAME  = process.env.FROM_NAME  || 'Claude Cowork Ebook';
   const EBOOK_URL  = process.env.EBOOK_DOWNLOAD_URL;
 
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
       await answerCallback(BOT_TOKEN, cq.id, '⏳ Đang gửi ebook...');
 
       // Gửi ebook
-      const success = await sendEbook(email, { BREVO_KEY, FROM_EMAIL, FROM_NAME, EBOOK_URL });
+      const success = await sendEbook(email, { GMAIL_USER, GMAIL_PASS, FROM_NAME, EBOOK_URL });
 
       if (success) {
         // Sửa message gốc: thay nút bằng trạng thái đã xử lý
@@ -93,7 +93,7 @@ export default async function handler(req, res) {
 
   if (/^ok\s+\S+@\S+\.\S+/i.test(text)) {
     const email = text.replace(/^ok\s+/i, '').trim().toLowerCase();
-    const success = await sendEbook(email, { BREVO_KEY, FROM_EMAIL, FROM_NAME, EBOOK_URL });
+    const success = await sendEbook(email, { GMAIL_USER, GMAIL_PASS, FROM_NAME, EBOOK_URL });
 
     if (success) {
       await sendTelegram(BOT_TOKEN, MY_CHAT_ID,
@@ -128,28 +128,45 @@ async function sendTelegram(token, chatId, text) {
   });
 }
 
-async function sendEbook(email, { BREVO_KEY, FROM_EMAIL, FROM_NAME, EBOOK_URL }) {
+async function sendEbook(email, { GMAIL_USER, GMAIL_PASS, FROM_NAME, EBOOK_URL }) {
   try {
-    const r = await fetch('https://api.brevo.com/v3/smtp/email', {
-      method: 'POST',
-      headers: {
-        'api-key': BREVO_KEY,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        sender:      { name: FROM_NAME, email: FROM_EMAIL },
-        to:          [{ email }],
-        subject:     '🎉 Ebook Claude Cowork của bạn đây!',
-        htmlContent: buildEmailHtml(email, EBOOK_URL),
-      }),
+    // Gửi qua Gmail SMTP bằng fetch tới Gmail API (OAuth-free, dùng App Password)
+    const boundary = 'boundary_' + Date.now();
+    const htmlBody = buildEmailHtml(email, EBOOK_URL);
+
+    // Encode email theo MIME rồi gửi qua Gmail SMTP relay
+    // Dùng fetch tới smtp2go hoặc Google SMTP trực tiếp qua encoded credentials
+    const smtpPayload = {
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: { user: GMAIL_USER, pass: GMAIL_PASS },
+      from: `"${FROM_NAME}" <${GMAIL_USER}>`,
+      to: email,
+      subject: '🎉 Ebook Claude Cowork của bạn đây!',
+      html: htmlBody,
+    };
+
+    // Gọi qua SMTP-to-HTTP bridge (smtpjs approach với nodemailer-style API)
+    // Vercel hỗ trợ nodemailer native, import dynamic để tránh bundle issues
+    const nodemailer = await import('nodemailer');
+    const transporter = nodemailer.default.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: { user: GMAIL_USER, pass: GMAIL_PASS },
     });
-    if (!r.ok) {
-      const err = await r.text();
-      console.error('Brevo error:', err);
-    }
-    return r.ok;
+
+    await transporter.sendMail({
+      from: `"${FROM_NAME}" <${GMAIL_USER}>`,
+      to: email,
+      subject: '🎉 Ebook Claude Cowork của bạn đây!',
+      html: htmlBody,
+    });
+
+    return true;
   } catch (err) {
-    console.error('sendEbook error:', err);
+    console.error('sendEbook Gmail error:', err.message);
     return false;
   }
 }
