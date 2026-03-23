@@ -1,3 +1,6 @@
+// Tăng timeout lên 30s để tránh Vercel cold start làm webhook lỗi
+export const maxDuration = 30;
+
 /**
  * api/telegram.js  –  Telegram Bot Webhook
  *
@@ -21,8 +24,9 @@ export default async function handler(req, res) {
 
   const BOT_TOKEN  = process.env.TELEGRAM_BOT_TOKEN;
   const MY_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
-  const RESEND_KEY = process.env.RESEND_API_KEY;
-  const FROM_EMAIL = process.env.FROM_EMAIL || 'ebook@yourdomain.com';
+  const BREVO_KEY  = process.env.BREVO_API_KEY;
+  const FROM_EMAIL = process.env.FROM_EMAIL || 'duclam203@gmail.com';
+  const FROM_NAME  = process.env.FROM_NAME  || 'Claude Cowork Ebook';
   const EBOOK_URL  = process.env.EBOOK_DOWNLOAD_URL;
 
   const ok = () => res.status(200).json({ ok: true });
@@ -51,7 +55,7 @@ export default async function handler(req, res) {
       await answerCallback(BOT_TOKEN, cq.id, '⏳ Đang gửi ebook...');
 
       // Gửi ebook
-      const success = await sendEbook(email, { RESEND_KEY, FROM_EMAIL, EBOOK_URL });
+      const success = await sendEbook(email, { BREVO_KEY, FROM_EMAIL, FROM_NAME, EBOOK_URL });
 
       if (success) {
         // Sửa message gốc: thay nút bằng trạng thái đã xử lý
@@ -89,7 +93,7 @@ export default async function handler(req, res) {
 
   if (/^ok\s+\S+@\S+\.\S+/i.test(text)) {
     const email = text.replace(/^ok\s+/i, '').trim().toLowerCase();
-    const success = await sendEbook(email, { RESEND_KEY, FROM_EMAIL, EBOOK_URL });
+    const success = await sendEbook(email, { BREVO_KEY, FROM_EMAIL, FROM_NAME, EBOOK_URL });
 
     if (success) {
       await sendTelegram(BOT_TOKEN, MY_CHAT_ID,
@@ -124,21 +128,25 @@ async function sendTelegram(token, chatId, text) {
   });
 }
 
-async function sendEbook(email, { RESEND_KEY, FROM_EMAIL, EBOOK_URL }) {
+async function sendEbook(email, { BREVO_KEY, FROM_EMAIL, FROM_NAME, EBOOK_URL }) {
   try {
-    const r = await fetch('https://api.resend.com/emails', {
+    const r = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${RESEND_KEY}`,
+        'api-key': BREVO_KEY,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: `Claude Cowork Ebook <${FROM_EMAIL}>`,
-        to: [email],
-        subject: '🎉 Ebook Claude Cowork của bạn đây!',
-        html: buildEmailHtml(email, EBOOK_URL),
+        sender:      { name: FROM_NAME, email: FROM_EMAIL },
+        to:          [{ email }],
+        subject:     '🎉 Ebook Claude Cowork của bạn đây!',
+        htmlContent: buildEmailHtml(email, EBOOK_URL),
       }),
     });
+    if (!r.ok) {
+      const err = await r.text();
+      console.error('Brevo error:', err);
+    }
     return r.ok;
   } catch (err) {
     console.error('sendEbook error:', err);
